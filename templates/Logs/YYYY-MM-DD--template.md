@@ -1,3 +1,9 @@
+---
+date: YYYY-MM-DD
+type: simulation | experiment | analysis | meeting | note
+tags: []
+---
+
 # YYYY-MM-DD: {{ Short descriptive title }}
 
 ## Why

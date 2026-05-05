@@ -63,7 +63,7 @@ Never create lab book files in a directory without user consent.
 
 ### Log — Record experiment / simulation results
 
-Ask the user what type of content they want to record:
+1. Ask the user what type of content they want to record:
    - **Simulation/experiment result** → create `Logs/YYYY-MM-DD--kebab-description.md`
    - **Design decision** → update `AGENTS.md` Decision section
    - **Bug discovered** → dispatch to Bug workflow
@@ -72,6 +72,7 @@ Ask the user what type of content they want to record:
    - Write structured markdown: **Why** → **Setup** → **Results** → **Interpretation** → **Next**
    - Reference raw data files with relative paths (figures, CSV, .mph, .fsp)
    - Keep interpretation separate from raw results — don't let narrative override data
+   - Include YAML frontmatter: `date`, `type`, `tags` (Obsidian-compatible)
 3. Append a one-line summary to `README.md` under "Recent Results" if active
 
 ### Bug — Record a mistake or fix
@@ -144,6 +145,7 @@ Intent → Action
 - **Never delete log entries** — mark as superseded/invalidated, never remove
 - **Never overwrite raw data** — reference by path, don't duplicate
 - **Dates are YYYY-MM-DD** — no relative dates ("today", "yesterday")
+- **Log entries include YAML frontmatter** — `date`, `type`, `tags` for Obsidian Dataview compatibility
 - **`README.md` ≠ `AGENTS.md`** — don't merge them; different audiences
 - **No private keys, passwords, or access tokens** in any lab book file
 - **Interpretation is not result** — keep the "what happened" separate from "what I think it means"
