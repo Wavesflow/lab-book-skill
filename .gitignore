@@ -1,0 +1,4 @@
+.last_update
+*.swp
+*.swo
+__pycache__/
