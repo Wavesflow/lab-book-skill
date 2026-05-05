@@ -3,9 +3,8 @@ name: lab-book-skill
 description: >
   Maintain structured lab notebooks for research projects — log experiments,
   design decisions, bugs, simulation results, and raw data. Creates and manages
-  AGENTS.md, bugs.md, README.md, and Logs/ in any project directory. Trigger on
-  phrases like "log this", "记录一下", "lab book", "记个 bug", "开始新实验",
-  "仿真记录", "update lab book", or any research milestone completion.
+  AGENTS.md, bugs.md, README.md, and Logs/ in any project directory.
+  Loaded on demand — only activates when user explicitly requests it.
   Especially useful for photonics/computational optics simulation workflows
   (COMSOL, Lumerical, Zemax, RCWA, FDTD).
 metadata:
@@ -21,17 +20,13 @@ Maintain structured lab notebooks per research project — the kind you'd want y
 
 ---
 
-## When to Trigger
+## When to Load
 
-**Explicit triggers:** user says "记录", "log", "lab book", "记个 bug", "记一下", "记录这次实验", "写日志", "update lab book", "log entry"
+This skill is **loaded on demand** only. It does NOT activate automatically.
 
-**Proactive triggers:**
-- Simulation run completes (RCWA sweep, FDTD, COMSOL) — ask "要记录这次结果吗？"
-- Milestone reached (parameter scan done, optimization converged, paper section drafted)
-- Bug discovered or fixed during a coding/simulation session
-- New project directory encountered that has no lab book yet
+Say "加载 lab book" / "用 lab book" / "load lab book" when you want to use it.
 
-**Skip when:** user is in quick Q&A, exploration, or non-project-specific discussion
+Once loaded, it follows the workflows below to help you maintain the project's lab book.
 
 ---
 
@@ -68,9 +63,7 @@ Never create lab book files in a directory without user consent.
 
 ### Log — Record experiment / simulation results
 
-Triggered when user says "log this" or a significant computational result was just produced.
-
-1. Ask (if not obvious): what type of content?
+Ask the user what type of content they want to record:
    - **Simulation/experiment result** → create `Logs/YYYY-MM-DD--kebab-description.md`
    - **Design decision** → update `AGENTS.md` Decision section
    - **Bug discovered** → dispatch to Bug workflow
@@ -117,30 +110,30 @@ Perform during idle time or when user says "整理一下 lab book".
 ## Decision Tree
 
 ```
-User says / Event happens
+Intent → Action
 │
-├─ "开始新项目" / first entry into new project dir
+├─ Start a new project / first entry
 │   → Init workflow
 │
-├─ Simulation run just finished / "记录仿真"
+├─ Record a simulation or experiment result
 │   → Log entry in Logs/YYYY-MM-DD--*.md
 │   + optional: if result is significant → update README
 │
-├─ "发现 bug" / "设错了参数" / wrong result
+├─ Record a bug / wrong parameter / wrong result
 │   → append to bugs.md
 │   + cross-ref affected Logs/ entries
 │
-├─ "做了一个设计决策" / "决定了 X"
+├─ Record a design decision
 │   → update AGENTS.md Decision section
 │   (not README — README is for results, not decision history)
 │
-├─ 项目完成 / 投稿 / 归档
+├─ Project milestone (done, submitted, archived)
 │   → Milestone workflow: README (results) + AGENTS.md (status+decisions)
 │
-├─ "整理一下" / "收尾"
+├─ Tidy up / sync
 │   → Sync workflow
 │
-├─ "这个数据存一下" / raw output file
+├─ Archive raw output files
 │   → copy/symlink to Logs/ subdirectory, reference from log entry
 ```
 
